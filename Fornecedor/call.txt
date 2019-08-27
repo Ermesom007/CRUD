@@ -1,0 +1,20 @@
+create procedure cadastrarFornecedor(
+	in nome varchar(100),
+    in telefone char(11),
+    in cnpj char(14),
+    in estadual char(16))
+begin
+	declare id_fornecedor int;
+	if((select count(*) from tb_fornecedor) != 0 )then
+		insert into tb_fornecedor(cd_fornecedor,nm_fornecedor,cd_telefone,cd_cnpj,cd_insc_estadual) select max(cd_fornecedor)+1,nome,telefone,cnpj,estadual from tb_fornecedor;
+		
+	else
+		set id_fornecedor=1;
+        	insert into tb_fornecedor(cd_fornecedor,nm_fornecedor,cd_telefone,cd_cnpj,cd_insc_estadual) value(id_fornecedor,nome,telefone,cnpj,estadual);
+	end if;
+END $
+
+
+
+
+call cadastrarFornecedor('Yara Transportes', 1198653411, 35768495102480, 0314861032478975);
